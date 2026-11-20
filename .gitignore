@@ -1,0 +1,33 @@
+# 构建产物
+dist/
+build/
+*.spec
+*.zip
+
+# 运行时缓存（解包出来的游戏素材，绝对不能提交）
+cache/
+out/
+*.skel
+*.atlas
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pysite/
+.pylibs/
+.tmp/
+
+# 本地日志 / 配置
+*.log
+config.json
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 含游戏画面的截图
+docs/screenshot*.png
