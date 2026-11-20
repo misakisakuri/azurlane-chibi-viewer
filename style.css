@@ -1,0 +1,235 @@
+:root {
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --panel-2: #f1f3f7;
+  --line: #dfe3ea;
+  --text: #1f2430;
+  --muted: #6b7280;
+  --accent: #2f7cf6;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  overflow: hidden;
+}
+
+#app { display: flex; flex-direction: column; height: 100vh; }
+
+/* ------------------------------------------------------------------ topbar */
+#topbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 14px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+  flex: 0 0 auto;
+}
+.appname { font-weight: 600; letter-spacing: .02em; white-space: nowrap; color: #111827; }
+.rootline { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
+.rootline .lbl { color: var(--muted); font-size: 11px; white-space: nowrap; }
+#rootpath {
+  flex: 1;
+  min-width: 120px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--text);
+  outline: none;
+  font-size: 12px;
+}
+#rootpath:focus { border-color: var(--accent); }
+#topbar button {
+  background: #f7f8fa;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+}
+#topbar button:hover { border-color: var(--accent); color: var(--accent); }
+
+#body { display: flex; flex: 1; min-height: 0; }
+
+/* ---------------------------------------------------------------- sidebar */
+#sidebar {
+  width: 260px;
+  flex: 0 0 260px;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  min-height: 0;
+  padding-top: 10px;
+}
+
+#search {
+  margin: 0 12px 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  outline: none;
+}
+#search:focus { border-color: var(--accent); background: #fff; }
+
+.count { color: var(--muted); font-size: 11px; padding: 0 14px 8px; }
+
+.list {
+  margin: 0;
+  padding: 0 8px 12px;
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.list li .cnt {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.list li:hover { background: #eef2f8; }
+.list li.active { background: #e3edff; color: #123a7a; font-weight: 600; }
+
+/* ------------------------------------------------------------------ stage */
+#stage { position: relative; flex: 1; min-width: 0; background: #ffffff; }
+
+#canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #fbfcfe;
+  background-image:
+    linear-gradient(45deg, #e7ebf2 25%, transparent 25%),
+    linear-gradient(-45deg, #e7ebf2 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e7ebf2 75%),
+    linear-gradient(-45deg, transparent 75%, #e7ebf2 75%);
+  background-size: 24px 24px;
+  background-position: 0 0, 0 12px, 12px -12px, -12px 0;
+  cursor: grab;
+}
+#canvas.dragging { cursor: grabbing; }
+
+#hud {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  pointer-events: none;
+}
+#charname { font-size: 18px; font-weight: 600; color: #111827; }
+.meta { color: var(--muted); font-size: 11px; margin-top: 2px; }
+
+.status {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  max-width: 42%;
+  color: #b42318;
+  font-size: 12px;
+  text-align: right;
+  white-space: pre-wrap;
+}
+.status:empty { display: none; }
+
+/* --------------------------------------------------------------- controls */
+#controls {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, .96);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .12);
+  backdrop-filter: blur(6px);
+  max-width: calc(100% - 24px);
+  justify-content: center;
+}
+
+#controls button {
+  background: #f7f8fa;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+#controls button:hover { border-color: var(--accent); color: var(--accent); }
+#play { width: 34px; }
+#prevanim, #nextanim { width: 30px; padding: 5px 0; }
+
+.field { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; }
+.field select {
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 6px;
+  max-width: 170px;
+  outline: none;
+}
+.check { display: flex; align-items: center; gap: 5px; color: var(--muted); font-size: 11px; }
+.speed input { width: 72px; }
+
+.time { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 160px; }
+.time input { flex: 1; min-width: 80px; accent-color: var(--accent); }
+#clock { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 11px; white-space: nowrap; }
+
+.frames { display: flex; align-items: center; gap: 4px; }
+.frames button { padding: 4px 7px; font-size: 11px; }
+.frames select {
+  background: #ffffff;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 3px 4px;
+  font-size: 11px;
+}
+#frameno {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 11px;
+  min-width: 54px;
+  text-align: center;
+}
+
+.speeds { display: flex; gap: 3px; }
+.speeds button { padding: 3px 6px; font-size: 11px; }
+.speeds button.on { border-color: var(--accent); background: #e3edff; color: #123a7a; font-weight: 600; }
+
+input[type="range"] { accent-color: var(--accent); }
+
+/* 浅色主题下的滚动条 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #d3d8e0; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #b9c0cb; }
+::-webkit-scrollbar-track { background: transparent; }

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>碧蓝航线 小人动画预览</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+  <header id="topbar">
+    <div class="appname">碧蓝航线 · 小人动画预览</div>
+    <div class="rootline">
+      <span class="lbl">素材目录</span>
+      <input id="rootpath" spellcheck="false" autocomplete="off" placeholder="AssetBundles 文件夹（内含 char/）">
+      <button id="loadroot">加载</button>
+    </div>
+    <button id="openbrowser" title="用系统默认浏览器打开这个页面">在浏览器打开</button>
+  </header>
+
+  <div id="body">
+    <aside id="sidebar">
+      <input id="search" type="search" placeholder="搜索角色名，例如 lafei、2b、chess_">
+      <div id="count" class="count">—</div>
+      <ul id="list" class="list"></ul>
+    </aside>
+
+    <main id="stage">
+      <canvas id="canvas"></canvas>
+      <div id="hud">
+        <div id="charname">—</div>
+        <div id="meta" class="meta"></div>
+      </div>
+      <div id="status" class="status"></div>
+
+      <div id="controls">
+        <button id="prevanim" title="上一个动作（,）">⏮</button>
+        <button id="play" title="播放 / 暂停（空格）">❚❚</button>
+        <button id="nextanim" title="下一个动作（.）">⏭</button>
+        <label class="field">
+          <span>动作</span>
+          <select id="anim"></select>
+        </label>
+        <label class="field">
+          <span>皮肤</span>
+          <select id="skin"></select>
+        </label>
+        <label class="check"><input id="loop" type="checkbox" checked> 循环</label>
+        <label class="check"><input id="pma" type="checkbox"> PMA</label>
+        <label class="check"><input id="sharp" type="checkbox"> 锐利</label>
+        <label class="field speed">
+          <span>速度</span>
+          <input id="speed" type="range" min="0.1" max="2" step="0.1" value="1">
+        </label>
+        <div class="speeds">
+          <button data-speed="0.5" title="半速">0.5×</button>
+          <button data-speed="1" class="on" title="原速">1×</button>
+          <button data-speed="2" title="两倍速">2×</button>
+        </div>
+        <div class="time">
+          <input id="seek" type="range" min="0" max="1000" value="0" step="1">
+          <span id="clock">0.00 / 0.00</span>
+        </div>
+        <div class="frames">
+          <button id="prev" title="上一帧（←）">◀</button>
+          <button id="next" title="下一帧（→）">▶</button>
+          <select id="fps" title="逐帧步进的帧率">
+            <option value="24">24</option>
+            <option value="30" selected>30</option>
+            <option value="60">60</option>
+          </select>
+          <span id="frameno">0 / 0</span>
+        </div>
+        <button id="fit" title="适应窗口（R）">适应</button>
+        <button id="shot" title="保存当前画面为 PNG">截图</button>
+        <button id="gif" title="把当前动作完整导出为 GIF">GIF</button>
+      </div>
+    </main>
+  </div>
+</div>
+<script src="/vendor/spine-webgl-3.8.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>
